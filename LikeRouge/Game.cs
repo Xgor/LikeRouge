@@ -15,9 +15,11 @@ public class Game
         Init();
         while (true)
         {
+            
             Update();
             Draw();
-            Thread.Sleep(100);
+            while(ReadInput()){}
+            //Thread.Sleep(100);
         }
     }
 
@@ -25,6 +27,13 @@ public class Game
     {
         _map = new Map(_width, _height);
         _player = new Player();
+    }
+
+    internal bool ReadInput()
+    {
+        var key = Console.ReadKey();
+        return !_player.UseInput(key.Key);
+        
     }
 
     internal void Update()
@@ -40,11 +49,20 @@ public class Game
             for(int x = 0; x < _width; x++) 
             {
                 Point p = new Point(x, y);
+                // TODO redo so it's a list of IDrawable to take from
+                if (_player.VisibleAtPosition(p))
+                {
+                    _player.GetCellAtPosition(p).Draw();
+                    continue;
+                }
+
                 if(_map.VisibleAtPosition(p))
                     _map.GetCellAtPosition(p).Draw();
+
             }
             Console.WriteLine();
         }
+        Console.ResetColor();
     }
 }
 

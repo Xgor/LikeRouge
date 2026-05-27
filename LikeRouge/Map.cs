@@ -23,7 +23,9 @@ internal class Map : IDrawable
         {
             for (int y = 0; y < _height; y++)
             {
-                _cells[x, y] = new Cell();
+                Cell c = new Cell('.');
+                c.BackgroundColor = ConsoleColor.DarkYellow;
+                _cells[x, y] = c;
             }
         }
     }

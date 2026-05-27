@@ -3,7 +3,7 @@ using System.Numerics;
 
 namespace LikeRouge;
 
-public class Character : IDrawable 
+public abstract class Character : IDrawable 
 {
     public Point Position { get; set; }
 
